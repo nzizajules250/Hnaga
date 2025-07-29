@@ -62,7 +62,6 @@ export function RegisterForm({ isAdminRegistration = false }: { isAdminRegistrat
         // Store auth data
         authUtils.setToken(data.token);
         authUtils.setUser(data.user);
-        
         toast({ 
           title: 'Account Created!', 
           description: `Welcome ${data.user.name}! Redirecting to dashboard...` 
@@ -97,7 +96,7 @@ export function RegisterForm({ isAdminRegistration = false }: { isAdminRegistrat
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="Peace Maken" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

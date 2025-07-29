@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Users, ListTodo } from 'lucide-react';
 import { Bar, BarChart as RechartsBarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Cell } from 'recharts';
-import { useAuth } from '@/utils/auth';
+// import { useAuth } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
 
 // Types
@@ -43,7 +43,7 @@ export default function OverviewPage() {
   // Redirect non-admin users to client dashboard
   useEffect(() => {
     const typedUser = user as User;
-    if (!loading && isAuthenticated && typedUser?.role !== 'admin') {
+    if (!loading && isAuthenticated && typedUser?.role && typedUser.role !== 'admin') {
       router.push('/dashboard/client');
     }
   }, [loading, isAuthenticated, user, router]);
@@ -51,10 +51,8 @@ export default function OverviewPage() {
   // Fetch data (replace with your API calls)
   useEffect(() => {
     if (!isAuthenticated || (user as User)?.role !== 'admin') return;
-
     // Example: Mock data fetch (replace with real API calls)
     const fetchData = async () => {
-      // Simulate API calls
       setTaskCount(42);
       setUserCount(15);
       setProjectCount(7);
@@ -64,7 +62,6 @@ export default function OverviewPage() {
         { name: 'Done', total: 22 },
       ]);
     };
-
     fetchData();
   }, [isAuthenticated, user]);
 
@@ -80,11 +77,10 @@ export default function OverviewPage() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   // Guard clauses for non-authenticated or non-admin users
   if (!isAuthenticated) return null;
   const typedUser: User = user ? user as User : { role: undefined };
-  if (typedUser.role !== 'admin') return null;
+  if (typedUser.role && typedUser.role !== 'admin') return null;
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">

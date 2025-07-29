@@ -52,12 +52,10 @@ export function LoginForm() {
         // Store auth data
         authUtils.setToken(data.token);
         authUtils.setUser(data.user);
-        
         toast({ 
           title: 'Login Successful!',
           description: `Welcome back, ${data.user.name}!`
         });
-        
         // Small delay to show the toast
         setTimeout(() => {
           router.push('/dashboard');
